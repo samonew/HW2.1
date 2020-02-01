@@ -1,0 +1,24 @@
+Log your changes here.
+
+Problem: I couldn't remember the 'or' operand
+Solution: I googled "or in java" and I got a table full of boolean operations
+
+Problem: I couldn't remember how to compare booleans
+Solution: I googled "comparing booleans java" and in images found code that showed me to use
+        boolean operations instead of .equals() or .compare() like I was trying to use
+
+Problem: I couldn't remember how to make a new array
+Solution: I googled "arrays java" and found elementary code that showed that the brackets go after
+        the type not after the name of the array.
+
+Problem: I couldn't remember how to copy an array or if there was even a way to copy an array without
+        using for loops.
+Solution: I googled "copying an array" and found the .copy() method.
+
+Problem: I couldn't figure out how to make the array stop once it found a solution
+Solution: I went to Dr. Vegdahl and he suggested using methods instead of a huge nest of loops
+        So I wrote methods for making a piece of world and checking that piece against square
+
+Problem: I couldn't figure out how to make check() understand continuity.
+Solution: Went to Dr. Vegdahl and he showed me a way to assign each truth a number then rotate
+          through the array until all that had pieces touching were the same.
