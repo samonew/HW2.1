@@ -17,7 +17,8 @@ Solution: I googled "copying an array" and found the .copy() method.
 
 Problem: I couldn't figure out how to make the array stop once it found a solution
 Solution: I went to Dr. Vegdahl and he suggested using methods instead of a huge nest of loops
-        So I wrote methods for making a piece of world and checking that piece against square
+        So I wrote methods for making a piece of world, checking that piece against square, and
+        making the array mold to the shape
 
 Problem: I couldn't figure out how to make check() understand continuity.
 Solution: Went to Dr. Vegdahl and he showed me a way to assign each truth a number then rotate

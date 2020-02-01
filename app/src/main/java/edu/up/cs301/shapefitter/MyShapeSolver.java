@@ -69,6 +69,7 @@ public class MyShapeSolver extends ShapeSolver {
 
     }//end of solve()
 
+    //a method that adjusts the shape array to inculde only the shape drawn
     public boolean[][] setTempShape(){
 
         boolean foundTop = false;
@@ -128,7 +129,7 @@ public class MyShapeSolver extends ShapeSolver {
         }
 
         return tempArray;
-    }
+    }//end of tempShape
 
 
     //method that sets a temporary array to be analyzed from world
