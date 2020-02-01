@@ -30,6 +30,7 @@ public class MyShapeSolver extends ShapeSolver {
 
         int r = 0; //initialized row of solution
         int c = 0; //initialized column of solution
+        Orientation o = Orientation.ROTATE_NONE;
         boolean foundSolution = false; //used later to display final solution coordinates
 
         //temporary array to compare shape to. Same size as shape.
@@ -46,12 +47,13 @@ public class MyShapeSolver extends ShapeSolver {
                     display(i, j, or); //displays place currently being analyzed
 
                     //creates a temporary array the size of the shape with setTempArray
-                    tempShape.equals(setTempArray(world, shape, i, j));
+                    tempArray = setTempArray(world, shape, i, j).clone();
 
                     //checks to see if the two arrays are a match, if so saves the location
-                    if (doesFit(tempShape, tempArray)) {
+                    if (!foundSolution && doesFit(tempShape, tempArray)) {
                         r = i;
                         c = j;
+                        o = or;
                         foundSolution = true;
                     }
 
@@ -62,12 +64,13 @@ public class MyShapeSolver extends ShapeSolver {
             //if a solution was found then display where it was
             if (foundSolution) {
 
-                display(r, c, or);
+                display(r, c, o);
             }
         } // end of orientation loop
 
 
     }//end of solve()
+
 
     //a method that adjusts the shape array to inculde only the shape drawn
     public boolean[][] setTempShape(){
@@ -129,7 +132,7 @@ public class MyShapeSolver extends ShapeSolver {
         }
 
         return tempArray;
-    }//end of tempShape
+    }//end of setTempShape
 
 
     //method that sets a temporary array to be analyzed from world
@@ -163,6 +166,13 @@ public class MyShapeSolver extends ShapeSolver {
         return true;
     }
 
+    //method that returns tempShape by calling setTempShape (purely for check() )
+    public boolean[][] getTempShape(){
+
+        boolean[][] tempShape = setTempShape().clone();
+
+        return tempShape;
+    }
 
     /**
      * Checks if the shape is well-formed: has at least one square, and has all squares connected.
@@ -171,16 +181,19 @@ public class MyShapeSolver extends ShapeSolver {
      */
     public boolean check() {
 
+
         boolean isValid = false;
-        int[][] tempArray = new int[shape.length][shape[0].length];
         int runner = 1;
+
+        boolean[][] tempShape = getTempShape().clone();
+        int[][] tempArray = new int[tempShape.length][tempShape[0].length];
 
 
         //sets each true in the temp array to a number & each false to 0
-        for (int x = 0; x < shape.length; x++) {
-            for (int y = 0; y < shape.length; y++) {
+        for (int x = 0; x < tempShape.length; x++) {
+            for (int y = 0; y < tempShape[x].length; y++) {
 
-                if (shape[x][y]) {
+                if (tempShape[x][y]) {
                     tempArray[x][y] = runner;
                     runner++;
                 } else {
@@ -192,17 +205,16 @@ public class MyShapeSolver extends ShapeSolver {
 
         boolean changed = false;
 
+        //loops through the tempShape and set each integer to a the smallest number of its neighbors
         do {
 
             changed = false;
-            for (int x = 0; x < shape.length; x++) {
-                for (int y = 0; y < shape.length; y++) {
+            for (int x = 0; x < tempShape.length; x++) {
+                for (int y = 0; y < tempShape.length; y++) {
 
                     if (tempArray[x][y] > 0) {
 
-                        if (x < shape.length - 1 && y < shape[x].length - 1) {
-
-
+                        if (x < tempShape.length - 1 && y < tempShape[x].length - 1) {
 
                             if (tempArray[x + 1][y] > tempArray[x][y]) {
                                 tempArray[x + 1][y] = tempArray[x][y];
@@ -225,7 +237,7 @@ public class MyShapeSolver extends ShapeSolver {
                             }
                         }
 
-                        if (x < shape.length - 1 && y >= shape[x].length - 1) {
+                        if (x < tempShape.length - 1 && y >= tempShape[x].length - 1) {
                             if (tempArray[x + 1][y] > tempArray[x][y]) {
                                 tempArray[x + 1][y] = tempArray[x][y];
                                 changed = true;
@@ -237,7 +249,7 @@ public class MyShapeSolver extends ShapeSolver {
                             }
                         }
 
-                        if (x >= shape.length - 1 && y < shape[x].length - 1) {
+                        if (x >= tempShape.length - 1 && y < tempShape[x].length - 1) {
                             if (tempArray[x][y + 1] > tempArray[x][y]) {
                                 tempArray[x][y + 1] = tempArray[x][y];
                                 changed = true;
@@ -255,9 +267,10 @@ public class MyShapeSolver extends ShapeSolver {
             }
         } while (changed) ;
 
-
-        for(int x  = 0; x < shape.length; x ++){
-            for(int y = 0; y < shape[x].length; y ++){
+        //checks if any of the tempArray has a value greater than one
+        //if so then the shape is discontinuous
+        for(int x  = 0; x < tempShape.length; x ++){
+            for(int y = 0; y < tempShape[x].length; y ++){
                 if(tempArray[x][y] > 1){
                     return false;
                 }

@@ -23,3 +23,5 @@ Solution: I went to Dr. Vegdahl and he suggested using methods instead of a huge
 Problem: I couldn't figure out how to make check() understand continuity.
 Solution: Went to Dr. Vegdahl and he showed me a way to assign each truth a number then rotate
           through the array until all that had pieces touching were the same.
+
+Problem: The app keeps crashing.
