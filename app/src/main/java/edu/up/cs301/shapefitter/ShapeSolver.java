@@ -7,7 +7,7 @@ import android.util.Log;
  *
  * An abstract class that represents a solver that finds a location in a world
 
- * @author Steven R. Vegdahl
+ * @author Steve Vegdahl
  * @version 4 August 2016
  *
  * where a shape fits.

@@ -101,8 +101,8 @@ public class MyShapeSolver extends ShapeSolver {
         }
 
         //loops through the shape array backwards to find the bottom and rightmost values
-        for (int x = shape.length - 1; x > -1; x--) {
-            for (int y = shape[x].length - 1; y > -1; y--) {
+        for (int x = shape.length - 1; x > 0; x--) {
+            for (int y = shape[x].length - 1; y >= 0; y--) {
                 if (shape[x][y]) {
                     if(!foundBottom){
                         lastRow = x;
@@ -118,8 +118,8 @@ public class MyShapeSolver extends ShapeSolver {
         }
 
         //calculates the x and y dimension of the shape
-        yDimension = lastColumn - firstColumn;
-        xDimension = lastRow - firstRow;
+        yDimension = lastColumn - firstColumn + 1;
+        xDimension = lastRow - firstRow + 1;
 
         //creates tempArray given the new dimensions
         boolean[][] tempArray = new boolean[xDimension][yDimension];
